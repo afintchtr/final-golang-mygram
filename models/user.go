@@ -18,6 +18,16 @@ type User struct {
 	Comments     []Comment     `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"comments"`
 }
 
+type UserResponse struct {
+	ID 					 uint					 `json:"id"`
+	Email        string        `json:"email"`
+	Username     string        `json:"username"`
+	Age          uint8         `json:"age"`
+	Photos       []Photo       `json:"photos"`
+	SocialMedias []SocialMedia `json:"social_medias"`
+	Comments     []Comment     `json:"comments"`
+}
+
 func (u *User) BeforeCreate(tx *gorm.DB) (err error) {
 	_, errCreate := govalidator.ValidateStruct(u)
 

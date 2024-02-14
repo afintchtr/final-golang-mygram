@@ -38,9 +38,7 @@ func StoreSocialMedia(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{
-		"social_media": SocialMedia,
-	})
+	c.JSON(http.StatusCreated, SocialMedia)
 }
 
 func IndexSocialMedia(c *gin.Context) {
@@ -59,9 +57,7 @@ func IndexSocialMedia(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"social_medias": SocialMedias,
-	})
+	c.JSON(http.StatusOK, SocialMedias)
 }
 
 func ShowSocialMedia(c *gin.Context) {
@@ -86,9 +82,7 @@ func ShowSocialMedia(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"social_media": SocialMedia,
-	})
+	c.JSON(http.StatusOK, SocialMedia)
 }
 
 func EditSocialMedia(c *gin.Context) {
@@ -122,7 +116,11 @@ func EditSocialMedia(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"updated_social_media": SocialMedia,
+		"id": SocialMedia.ID,
+		"user_id": SocialMedia.UserID,
+		"updated_name": SocialMedia.Name,
+		"updated_social_media_url": SocialMedia.SocialMediaUrl,
+		"updated_at": SocialMedia.UpdatedAt,
 	})
 }
 

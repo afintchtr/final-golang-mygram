@@ -81,3 +81,37 @@ func Login(c *gin.Context) {
 		"token": token,
 	})
 }
+
+func IndexUser(c *gin.Context) {
+	db := database.GetDB()
+
+	Users := []models.User{}
+
+	err := db.Model(&Users).Preload("Photos.Comments").Preload("Comments").Preload("SocialMedias").Order("id").Find(&Users).Error
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error":   "Bad request",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	UsersResponse := []models.UserResponse{}
+	for _, User := range Users {
+		UserResponse := models.UserResponse{}
+
+		UserResponse.ID = User.ID
+		UserResponse.Email = User.Email
+		UserResponse.Username = User.Username
+		UserResponse.Age = User.Age
+		UserResponse.Photos = User.Photos
+		UserResponse.SocialMedias = User.SocialMedias
+		UserResponse.Comments = User.Comments
+
+		UsersResponse = append(UsersResponse, UserResponse)
+	}
+
+
+	c.JSON(http.StatusOK, UsersResponse)
+}
