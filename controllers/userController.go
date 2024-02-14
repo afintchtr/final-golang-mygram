@@ -11,7 +11,7 @@ import (
 
 var appJSON = "application/json"
 
-func UserRegister(c *gin.Context) {
+func Register(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
 	_, _ = db, contentType
@@ -40,7 +40,7 @@ func UserRegister(c *gin.Context) {
 	})
 }
 
-func UserLogin(c *gin.Context) {
+func Login(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
 	_, _ = db, contentType
