@@ -85,6 +85,7 @@ func IndexPhoto(c *gin.Context) {
 // @Produces json
 // @Param id path int true "ID of the photo to be shown"
 // @Success 200 {object} models.Photo
+// @Router /photos/{id} [get]
 func ShowPhoto(c *gin.Context) {
 	db := database.GetDB()
 	Photo := models.Photo{}

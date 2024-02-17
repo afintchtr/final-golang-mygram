@@ -200,6 +200,33 @@
             }
         },
         "/photos/{id}": {
+            "get": {
+                "description": "Get details sof one photo by its id",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "photo"
+                ],
+                "summary": "Get photo details",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID of the photo to be shown",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Photo"
+                        }
+                    }
+                }
+            },
             "delete": {
                 "description": "Just delete an existing photo",
                 "consumes": [

@@ -24,7 +24,7 @@ import (
 // @BasePath /
 func StartApp() *gin.Engine {
 	r := gin.Default()
-	
+
 	userRouter := r.Group("/users") 
 	{
 		userRouter.POST("/register", controllers.Register)

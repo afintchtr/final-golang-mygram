@@ -261,6 +261,24 @@ paths:
       summary: Delete an existing photo
       tags:
       - photo
+    get:
+      consumes:
+      - application/json
+      description: Get details sof one photo by its id
+      parameters:
+      - description: ID of the photo to be shown
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Photo'
+      summary: Get photo details
+      tags:
+      - photo
     patch:
       consumes:
       - application/json
