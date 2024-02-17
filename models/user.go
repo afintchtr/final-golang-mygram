@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// User represents the model for an user
 type User struct {
 	GormModel
 	Email        string        `gorm:"not null;uniqueIndex" json:"email" form:"email" valid:"required~Your email is required,email~Invalid email format"`
@@ -18,6 +19,7 @@ type User struct {
 	Comments     []Comment     `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"comments"`
 }
 
+// UserResponse represents the model for an user response
 type UserResponse struct {
 	ID 					 uint					 `json:"id"`
 	Email        string        `json:"email"`

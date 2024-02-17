@@ -11,6 +11,15 @@ import (
 
 var appJSON = "application/json"
 
+// Register godoc
+// @Summary Create a new account
+// @Description Create a new user with email and password
+// @Tags user
+// @Accept json
+// @Produces json
+// @Param models.User body models.UserResponse true "create user"
+// @Success 200 {object} models.User
+// @Router /users/register/ [post]
 func Register(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -40,6 +49,15 @@ func Register(c *gin.Context) {
 	})
 }
 
+// Login godoc
+// @Summary Login to existing account 
+// @Description Authenticate existing user and generate token
+// @Tags user
+// @Accept json
+// @Produces json
+// @Param models.User body models.UserResponse true "get token"
+// @Success 200 {object} models.User
+// @Router /users/login/ [post]
 func Login(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -82,6 +100,14 @@ func Login(c *gin.Context) {
 	})
 }
 
+// IndexUser godoc
+// @Summary Get all user details
+// @Description Get details of all users
+// @Tags user
+// @Accept json
+// @Produces json
+// @Success 200 {object} models.UserResponse
+// @Router /users/ [get]
 func IndexUser(c *gin.Context) {
 	db := database.GetDB()
 

@@ -5,6 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Comment represents the model for a comment
 type Comment struct {
 	GormModel
 	UserID  uint

@@ -5,6 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Social media represents the model for a social media
 type SocialMedia struct {
 	GormModel
 	UserID         uint

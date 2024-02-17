@@ -1,0 +1,420 @@
+basePath: /
+definitions:
+  models.Comment:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      message:
+        type: string
+      photo:
+        $ref: '#/definitions/models.Photo'
+      photoID:
+        type: integer
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/models.User'
+      userID:
+        type: integer
+    type: object
+  models.Photo:
+    properties:
+      caption:
+        type: string
+      comments:
+        items:
+          $ref: '#/definitions/models.Comment'
+        type: array
+      created_at:
+        type: string
+      id:
+        type: integer
+      photo_url:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/models.User'
+      userID:
+        type: integer
+    type: object
+  models.SocialMedia:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      social_media_url:
+        type: string
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/models.User'
+      userID:
+        type: integer
+    type: object
+  models.User:
+    properties:
+      age:
+        type: integer
+      comments:
+        items:
+          $ref: '#/definitions/models.Comment'
+        type: array
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      password:
+        type: string
+      photos:
+        items:
+          $ref: '#/definitions/models.Photo'
+        type: array
+      social_medias:
+        items:
+          $ref: '#/definitions/models.SocialMedia'
+        type: array
+      updated_at:
+        type: string
+      username:
+        type: string
+    type: object
+  models.UserResponse:
+    properties:
+      age:
+        type: integer
+      comments:
+        items:
+          $ref: '#/definitions/models.Comment'
+        type: array
+      email:
+        type: string
+      id:
+        type: integer
+      photos:
+        items:
+          $ref: '#/definitions/models.Photo'
+        type: array
+      social_medias:
+        items:
+          $ref: '#/definitions/models.SocialMedia'
+        type: array
+      username:
+        type: string
+    type: object
+host: localhost:8085
+info:
+  contact:
+    email: afintchtr@gmail.com
+    name: Afin Tachtiar
+  description: This is what ive been practiced in Golang class Bootcamp BRI Golang
+    for Final project
+  license:
+    name: AfinT
+    url: https://github.com/afintchtr
+  termsOfService: http://swagger.io/terms/
+  title: MyGram API (Afin)
+  version: "1.0"
+paths:
+  /comments/:
+    get:
+      consumes:
+      - application/json
+      description: Get details of all comments
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+      summary: Get all comments details
+      tags:
+      - comment
+  /comments/{commentId}:
+    delete:
+      consumes:
+      - application/json
+      description: Just delete an existing comment
+      parameters:
+      - description: ID of the comment to be deleted
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      summary: Delete an existing comment
+      tags:
+      - comment
+    patch:
+      consumes:
+      - application/json
+      description: Update an existing comment with new message
+      parameters:
+      - description: ID of the comment to be updated
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+      summary: Update an existing comment
+      tags:
+      - comment
+  /comments/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of one comment by its id
+      parameters:
+      - description: ID of the comments to be shown
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+      summary: Get comment details
+      tags:
+      - comment
+  /comments/{photoId}:
+    post:
+      consumes:
+      - application/json
+      description: Create a new comment with message
+      parameters:
+      - description: create comment
+        in: body
+        name: models.Comment
+        required: true
+        schema:
+          $ref: '#/definitions/models.Comment'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+      summary: Create a new comment
+      tags:
+      - comment
+  /photos/:
+    get:
+      consumes:
+      - application/json
+      description: Get details of all photos
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Photo'
+      summary: Get all photo details
+      tags:
+      - photo
+    post:
+      consumes:
+      - application/json
+      description: Create a new photo with title, caption and url
+      parameters:
+      - description: create photo
+        in: body
+        name: models.Photo
+        required: true
+        schema:
+          $ref: '#/definitions/models.Photo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Photo'
+      summary: Create a new photo
+      tags:
+      - photo
+  /photos/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Just delete an existing photo
+      parameters:
+      - description: ID of the photo to be deleted
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      summary: Delete an existing photo
+      tags:
+      - photo
+    patch:
+      consumes:
+      - application/json
+      description: Update an existing photo with new title, caption, and url
+      parameters:
+      - description: ID of the photo to be updated
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Photo'
+      summary: Update an existing photo
+      tags:
+      - photo
+  /social-medias/:
+    get:
+      consumes:
+      - application/json
+      description: Get details of all social medias
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMedia'
+      summary: Get all social media details
+      tags:
+      - social-media
+    post:
+      consumes:
+      - application/json
+      description: Create a new social media with name and url
+      parameters:
+      - description: create social media
+        in: body
+        name: models.SocialMedia
+        required: true
+        schema:
+          $ref: '#/definitions/models.SocialMedia'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMedia'
+      summary: Create a new social media
+      tags:
+      - social-media
+  /social-medias/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Just delete an existing social media
+      parameters:
+      - description: ID of the social media to be deleted
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      summary: Delete an existing social media
+      tags:
+      - social-media
+    get:
+      consumes:
+      - application/json
+      description: Get details of one social media by its id
+      parameters:
+      - description: ID of the social media to be shown
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMedia'
+      summary: Get social media details
+      tags:
+      - social-media
+    patch:
+      consumes:
+      - application/json
+      description: Update an existing social media with new name and url
+      parameters:
+      - description: ID of the social media to be updated
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMedia'
+      summary: Update an existing social media
+      tags:
+      - social-media
+  /users/:
+    get:
+      consumes:
+      - application/json
+      description: Get details of all users
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResponse'
+      summary: Get all user details
+      tags:
+      - user
+  /users/login/:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate existing user and generate token
+      parameters:
+      - description: get token
+        in: body
+        name: models.User
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserResponse'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Login to existing account
+      tags:
+      - user
+  /users/register/:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user with email and password
+      parameters:
+      - description: create user
+        in: body
+        name: models.User
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserResponse'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Create a new account
+      tags:
+      - user
+swagger: "2.0"

@@ -13,6 +13,15 @@ import (
 	"gorm.io/gorm"
 )
 
+// StoreComment godoc
+// @Summary Create a new comment
+// @Description Create a new comment with message
+// @Tags comment
+// @Accept json
+// @Produces json
+// @Param models.Comment body models.Comment true "create comment"
+// @Success 200 {object} models.Comment
+// @Router /comments/{photoId} [post]
 func StoreComment(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -56,6 +65,14 @@ func StoreComment(c *gin.Context) {
 	c.JSON(http.StatusCreated, Comment)
 }
 
+// IndexComment godoc
+// @Summary Get all comments details
+// @Description Get details of all comments
+// @Tags comment
+// @Accept json
+// @Produces json
+// @Success 200 {object} models.Comment
+// @Router /comments/ [get]
 func IndexComment(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -75,6 +92,15 @@ func IndexComment(c *gin.Context) {
 	c.JSON(http.StatusOK, Comments)
 }
 
+// ShowComment godoc
+// @Summary Get comment details
+// @Description Get details of one comment by its id
+// @Tags comment
+// @Accept json
+// @Produces json
+// @Param id path int true "ID of the comments to be shown"
+// @Success 200 {object} models.Comment
+// @Router /comments/{id} [get]
 func ShowComment(c *gin.Context) {
 	db := database.GetDB()
 	Comment := models.Comment{}
@@ -100,6 +126,15 @@ func ShowComment(c *gin.Context) {
 	c.JSON(http.StatusOK, Comment)
 }
 
+// EditComment godoc
+// @Summary Update an existing comment
+// @Description Update an existing comment with new message
+// @Tags comment
+// @Accept json
+// @Produces json
+// @Param id path int true "ID of the comment to be updated"
+// @Success 200 {object} models.Comment
+// @Router /comments/{commentId} [patch]
 func EditComment(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -137,6 +172,15 @@ func EditComment(c *gin.Context) {
 	})
 }
 
+// DestroyComment godoc
+// @Summary Delete an existing comment
+// @Description Just delete an existing comment
+// @Tags comment
+// @Accept json
+// @Produces json
+// @Param id path int true "ID of the comment to be deleted"
+// @Success 204 "No Content"
+// @Router /comments/{commentId} [delete]
 func DestroyComment(c *gin.Context) {
 	db := database.GetDB()
 	Comment := models.Comment{}

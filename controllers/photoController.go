@@ -13,6 +13,15 @@ import (
 	"gorm.io/gorm"
 )
 
+// StorePhoto godoc
+// @Summary Create a new photo
+// @Description Create a new photo with title, caption and url
+// @Tags photo
+// @Accept json
+// @Produces json
+// @Param models.Photo body models.Photo true "create photo"
+// @Success 200 {object} models.Photo
+// @Router /photos/ [post]
 func StorePhoto(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -41,6 +50,14 @@ func StorePhoto(c *gin.Context) {
 	c.JSON(http.StatusCreated, Photo)
 }
 
+// IndexPhoto godoc
+// @Summary Get all photo details
+// @Description Get details of all photos
+// @Tags photo
+// @Accept json
+// @Produces json
+// @Success 200 {object} models.Photo
+// @Router /photos/ [get]
 func IndexPhoto(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -60,6 +77,14 @@ func IndexPhoto(c *gin.Context) {
 	c.JSON(http.StatusOK, Photos)
 }
 
+// ShowPhoto godoc
+// @Summary Get photo details
+// @Description Get details sof one photo by its id
+// @Tags photo
+// @Accept json
+// @Produces json
+// @Param id path int true "ID of the photo to be shown"
+// @Success 200 {object} models.Photo
 func ShowPhoto(c *gin.Context) {
 	db := database.GetDB()
 	Photo := models.Photo{}
@@ -85,6 +110,15 @@ func ShowPhoto(c *gin.Context) {
 	c.JSON(http.StatusOK, Photo)
 }
 
+// EditPhoto godoc
+// @Summary Update an existing photo
+// @Description Update an existing photo with new title, caption, and url
+// @Tags photo
+// @Accept json
+// @Produces json
+// @Param id path int true "ID of the photo to be updated"
+// @Success 200 {object} models.Photo
+// @Router /photos/{id} [patch]
 func EditPhoto(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -126,6 +160,15 @@ func EditPhoto(c *gin.Context) {
 	})
 }
 
+// DestroyPhoto godoc
+// @Summary Delete an existing photo
+// @Description Just delete an existing photo
+// @Tags photo
+// @Accept json
+// @Produces json
+// @Param id path int true "ID of the photo to be deleted"
+// @Success 204 "No Content"
+// @Router /photos/{id} [delete]
 func DestroyPhoto(c *gin.Context) {
 	db := database.GetDB()
 	Photo := models.Photo{}
@@ -145,6 +188,15 @@ func DestroyPhoto(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad request",
 			"message": err.Error(),
+		})
+		return
+	}
+
+	err = db.Model(&models.Comment{}).Where("photo_id = ?", photoId).Delete(&models.Comment{}).Error
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error_message": "Can't delete comments",
+			"error_detail": err,
 		})
 		return
 	}

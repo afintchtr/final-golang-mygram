@@ -13,6 +13,15 @@ import (
 	"gorm.io/gorm"
 )
 
+// StoreSocialMedia godoc
+// @Summary Create a new social media
+// @Description Create a new social media with name and url
+// @Tags social-media
+// @Accept json
+// @Produces json
+// @Param models.SocialMedia body models.SocialMedia true "create social media"
+// @Success 200 {object} models.SocialMedia
+// @Router /social-medias/ [post]
 func StoreSocialMedia(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -41,6 +50,14 @@ func StoreSocialMedia(c *gin.Context) {
 	c.JSON(http.StatusCreated, SocialMedia)
 }
 
+// IndexSocialMedia godoc
+// @Summary Get all social media details
+// @Description Get details of all social medias
+// @Tags social-media
+// @Accept json
+// @Produces json
+// @Success 200 {object} models.SocialMedia
+// @Router /social-medias/ [get]
 func IndexSocialMedia(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -60,6 +77,15 @@ func IndexSocialMedia(c *gin.Context) {
 	c.JSON(http.StatusOK, SocialMedias)
 }
 
+// ShowSocialMedia godoc
+// @Summary Get social media details
+// @Description Get details of one social media by its id
+// @Tags social-media
+// @Accept json
+// @Produces json
+// @Param id path int true "ID of the social media to be shown"
+// @Success 200 {object} models.SocialMedia
+// @Router /social-medias/{id} [get]
 func ShowSocialMedia(c *gin.Context) {
 	db := database.GetDB()
 	SocialMedia := models.SocialMedia{}
@@ -85,6 +111,15 @@ func ShowSocialMedia(c *gin.Context) {
 	c.JSON(http.StatusOK, SocialMedia)
 }
 
+// EditSocialMedia godoc
+// @Summary Update an existing social media
+// @Description Update an existing social media with new name and url
+// @Tags social-media
+// @Accept json
+// @Produces json
+// @Param id path int true "ID of the social media to be updated"
+// @Success 200 {object} models.SocialMedia
+// @Router /social-medias/{id} [patch]
 func EditSocialMedia(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -124,6 +159,15 @@ func EditSocialMedia(c *gin.Context) {
 	})
 }
 
+// DestroySocialMedia godoc
+// @Summary Delete an existing social media
+// @Description Just delete an existing social media
+// @Tags social-media
+// @Accept json
+// @Produces json
+// @Param id path int true "ID of the social media to be deleted"
+// @Success 204 "No Content"
+// @Router /social-medias/{id} [delete]
 func DestroySocialMedia(c *gin.Context) {
 	db := database.GetDB()
 	SocialMedia := models.SocialMedia{}
